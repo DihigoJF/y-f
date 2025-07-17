@@ -1,0 +1,980 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yurelia & Franz juntos por siempre</title>
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      @import url('https://fonts.googleapis.com/css2?family=Leckerli+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        /* background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%); */
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+
+      .heart {
+        position: absolute;
+        top: -50px;
+        font-size: 20px;
+        animation: fall linear infinite;
+        transform-origin: center;
+        opacity: 0.50;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+        }
+      }
+      .heart-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            z-index: 10;
+        }
+        
+        .heart-main {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            margin-top: 6px;
+        }
+        
+        .heart-beat {
+            font-size: 100px;
+            color: var(--heart-color, #ff3366);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            transform-origin: center;
+            pointer-events: none;
+            filter: drop-shadow(0 0 8px rgba(255, 51, 102, 0.5));
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.2); }
+            70% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        [class^="heart-wave"] {
+            position: absolute;
+            background-color: var(--wave-color, #ff3366);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
+            width: 100px;
+            height: 100px;
+            left: 50px;
+            top: 50px;
+            mix-blend-mode: screen;
+        }
+        
+        .heart-wave-1 {
+            animation: wave 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+            opacity: 0.7;
+            background-color: #ff3366;
+        }
+        
+        .heart-wave-2 {
+            animation: wave 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) infinite 0.3s;
+            opacity: 0.6;
+            background-color: #ff3366;
+        }
+        
+        .heart-wave-3 {
+            animation: wave 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) infinite 0.6s;
+            opacity: 0.5;
+            background-color: #ff3366;
+        }
+        
+        .heart-wave-4 {
+            animation: wave 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) infinite 0.9s;
+            opacity: 0.4;
+            background-color: #ff3366;
+        }
+        
+        .heart-wave-5 {
+            animation: wave 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) infinite 1.2s;
+            opacity: 0.3;
+            background-color: #ff3366;
+        }
+        
+        @keyframes wave {
+            0% {
+                transform: scale(0);
+                opacity: var(--initial-opacity);
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .scene {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .scene.active {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 1;
+      }
+
+      .scene.exit {
+        opacity: 0;
+        transform: scale(1.2);
+      }
+
+      /* Escena 1 */
+      .scene1 {
+        text-align: center;
+        z-index: 1;
+      }
+
+      .scene1 h1 {
+        color: #ff3366;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .scene1 p {
+        color: #6f42c1;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        padding: 0 2rem;
+      }
+
+      #animation2 {
+        transition: 0.3s;
+      }
+      #animation2.fade-and-hide {
+        opacity: 0;
+        pointer-events: none;
+        width: 0 !important;
+        height: 0 !important;
+      }
+
+      .lottie-clickable {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .lottie-clickable:hover {
+        transform: scale(1.05);
+      }
+
+      /* Escena 2 */
+      .scene2 {
+        text-align: center;
+      }
+
+      /* Sliders */
+      .slider-container {
+        width: 90%;
+        max-width: 400px;
+        height: 500px;
+        position: relative;
+        backdrop-filter: blur(2px);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid #ff336680;
+      }
+
+      .slider-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .slide {
+        min-width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .slide h3 {
+        color: #ff3366;
+        font-size: 20px;
+        font-family: "Leckerli One", cursive;
+        margin-bottom: 1rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .slide p {
+        color: #495057;
+        font-family: "Leckerli One", cursive;
+        font-size: 17px;
+        line-height: 1.6;
+        margin-bottom: 0.8rem;
+      }
+
+      .slide .highlight {
+        color: #ff3366;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .slider-nav {
+        position: absolute;
+        bottom: 20px;
+        right: 15px;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+      }
+
+      .nav-btn {
+        background: #ff3366;
+        color: white;
+        border: none;
+        fill: white;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .nav-btn:hover {
+        background: #b02a5b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(214, 51, 132, 0.4);
+      }
+
+      .nav-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .slide-indicator {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+      }
+
+      .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ddd;
+        transition: background 0.3s ease;
+      }
+
+      .indicator.active {
+        background: #ff3366;
+      }
+
+      /* Escena 3 */
+      .scene3 {
+        text-align: center;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: #ffdde58c;
+        opacity: 0;
+        transition: 0.5s;
+      }
+      .scene3.active {
+        opacity: 1;
+        transition: 0.5s;
+        z-index: 1;
+      }
+
+      .love-message {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.95);
+        padding: 1.5rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        max-width: 90%;
+        z-index: 10;
+      }
+
+      .love-message h2 {
+        color: #ff3366;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .love-message p {
+        color: #495057;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .time-counter {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 15px;
+        max-width: 90%;
+        z-index: 10;
+      }
+
+      .time-counter h3 {
+        color: #ff3366;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+      }
+
+      .time-display {
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+        flex-direction: column;
+      }
+      .tfbb {
+        font-size: 40px;
+        color: #ff3366;
+        font-weight: 700;
+        }
+      .tfb{
+        font-size: 14px;
+        color: #ff3366db;
+      }
+
+      .time-unit {
+            display: flex
+        ;
+            padding: 0.8rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+      .time-number {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ff3366;
+        display: block;
+      }
+
+      .time-label {
+        font-size: 0.9rem;
+        color: #6f42c1;
+        margin-top: 0.2rem;
+      }
+
+      /* Animaciones */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      /* Responsive para móviles */
+      @media (max-width: 480px) {
+        .scene1 h1 {
+          font-size: 1.8rem;
+        }
+
+        .scene1 p {
+          font-size: 1rem;
+          padding: 0 1rem;
+        }
+
+        .slider-container {
+          width: 95%;
+          height: 450px;
+        }
+
+        .slide {
+          padding: 1.5rem;
+        }
+
+        .slide h3 {
+          font-size: 1.5rem;
+        }
+
+        .slide p {
+          font-size: 1rem;
+        }
+
+        .love-message {
+          padding: 1rem;
+          top: 5%;
+        }
+
+        .love-message h2 {
+          font-size: 1.3rem;
+        }
+
+        .love-message p {
+          font-size: 0.9rem;
+        }
+
+        .time-counter {
+          padding: 1rem;
+          bottom: 10%;
+        }
+
+        .time-counter h3 {
+          font-size: 1.1rem;
+        }
+
+        .time-number {
+          font-size: 1.3rem;
+        }
+
+        .time-label {
+          font-size: 0.8rem;
+        }
+      }
+      .nv-1{
+        font-size: 33px;
+        font-family: "Leckerli One", cursive;
+        color: #ff3366;
+      }
+      .h263tr span {
+        margin-top: 10px;
+        position: relative;
+        top: 5px;
+    }
+
+    .h263tr {
+        font-size: 14px;
+        font-family: "Leckerli One", cursive;
+        color: #ff3366;
+        margin-top: -40px;
+        z-index: 1;
+        position:relative;}
+
+      .nv-1.a {
+        top: 45px;
+        position: relative;
+        }
+      .nv-1.b{
+        bottom:  45px;
+        position: relative;
+      }
+      .dy33 {
+        position: absolute;
+        font-family: "Leckerli One", cursive;
+        top: 40px;
+        text-align: center;
+        width: 80%;
+        line-height: 30px;
+        color: #ff3366;
+        font-size: 30px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Escena 1 -->
+      <div class="scene scene1 active">
+        <dotlottie-player
+          id="animation1"
+          src="https://lottie.host/21002b47-7b2a-4637-8d16-8b47aacf2576/tgIfVC9MHS.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 150px; height: 150px"
+          loop
+          autoplay
+          class="lottie-clickable pulse"
+        >
+        </dotlottie-player>
+      </div>
+
+      <!-- Escena 2 -->
+      <div class="scene scene2">
+        <dotlottie-player
+          id="animation2"
+          src="https://lottie.host/a40d4183-bf02-469f-b7e6-e762a8e27504/e6bLvrfEdr.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 400px; height: 400px; margin-bottom: 2rem; z-index: 1"
+        >
+        </dotlottie-player>
+
+        <div class="slider-container" style="display: none">
+          <div class="slider-content">
+            <div class="slide fade-in-up">
+                <h3 class="h7h7f">Mi bebita hermosa</h3>
+              <p>Desde aquel 17 de junio en Pinturillo, mi vida cambió por completo. Aunque Costa Rica y Chile están lejos, cada día siento tu corazón cerca del mío. Recuerdo la primera vez que te vi en Meet: tu sonrisa iluminó mi pantalla y mi mundo. Eres la persona más especial que he conocido, y esas cosas que solo yo sé de ti las guardo como tesoros. Eres mi confidente, mi alegría y mi razón para sonreír hasta en los días tristes.</p>
+            </div>
+
+            <div class="slide">
+                <h3 class="h7h7f">El Día que Soñamos</h3>
+              <p>No hay distancia que apague lo que siento. Cuando me muestras tu mundo, aunque sea a través de una pantalla, siento que estoy ahí contigo. Kima, nuestra hijita de 3 semanas, es el símbolo de este amor que crece cada día. Me encanta imaginarnos cuidándola juntos, riendo por sus ocurrencias. Eres la mamá más tierna, y aunque sea a distancia, esta familia que construimos me hace el hombre más feliz. Prometo seguir aquí,</p>
+            </div>
+
+            <div class="slide">
+                <h3 class="h7h7f">La conexión que sentimos</h3>
+              <p>aprendiendo de ti y amándote con todo lo que soy. Sé que no es fácil, pero cada "Hola mi amor" tuyo vale más que mil viajes cortos. Te extraño cuando duermes, cuando trabajas, incluso cuando estás en llamada. Me haces sentir que el amor no entiende de kilómetros. Y aunque a veces me gane la impaciencia por abrazarte, verte y tu voz me calma. Eres mi paz, Yurelia. Gracias por elegirme, por esperarme, por ser mi compañera en esta locura bonita que es el amor a distancia.</p>
+            </div>
+
+            <div class="slide">
+              <h3 class="h7h7f">Mi Hogar Eres Tú</h3>
+              <p>Siempre seré tuyo, en cada pixel que nos una y en cada futuro plan que hagamos. Kima nos necesita, pero yo te necesito más a ti. Eres mi mejor novia, mi cómplice, mi bebita hermosa. Hasta que pueda tomarte de la mano de verdad, aquí estoy, enviándote besos que cruzan montañas y mares. Te amo más de lo que estas 4 páginas pueden decir.
+<br>
+Para siempre tuyo,</p>
+            </div>
+          </div>
+
+          <div class="slider-nav">
+            <button style="display: none" class="nav-btn" id="prevBtn" disabled>
+              Anterior
+            </button>
+            <button class="nav-btn" id="nextBtn">
+              <svg
+                version="1.2"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+              >
+                <style>
+                  .d {
+                    fill: white;
+                  }
+                </style>
+                <path
+                  d="m19.5 16.8c-1.2 1.2-3.1 1.2-4.3 0-1.2-1.2-1.2-3.1 0-4.2l0.7-0.7-0.7-0.7c-1.2-1.2-1.2-3.1 0-4.3 1.2-1.1 3.1-1.1 4.3 0l4.1 4.1c0.3 0.2 0.4 0.5 0.4 0.9 0 0.3-0.1 0.6-0.4 0.9z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="m1.7 11.3h14.6c0.4 0 0.7 0.3 0.7 0.7 0 0.4-0.3 0.7-0.7 0.7h-14.6c-0.4 0-0.7-0.3-0.7-0.7 0-0.4 0.3-0.7 0.7-0.7z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Escena 3 -->
+      <div class="scene scene3">
+        <h3 class="dy33">Un mes y mi corazón sigue eligiéndote… como siempre lo hará.</h3>
+
+        <div class="all-hear-cont">
+            <span class="nv-1 a">Yurelia</span>
+            <div class="heart-container">
+                <div class="heart-main">
+                    <div class="heart-beat">❤</div>
+                </div>
+                <div class="heart-wave-1"></div>
+                <div class="heart-wave-2"></div>
+                <div class="heart-wave-3"></div>
+                <div class="heart-wave-4"></div>
+                <div class="heart-wave-5"></div>
+            </div>
+            <span class="nv-1 b">Franz</span>
+        </div>
+
+        <div class="time-counter fade-in-up">
+          <h3></h3>
+          <div class="time-display">
+            <div class="time-unit">
+              <div style="display: none;"><span class="tfbb" id="years">0</span><span class="tfb">Años</span></div>
+              <div><span class="tfbb" id="months">0</span><span class="tfb">Mes</span></div>
+              <div><span class="tfbb" id="days">0</span><span class="tfb">Días</span></div>
+              <div style="display: none;"><span class="tfbb" id="hours">0</span><span class="tfb">Horas</span></div>
+            </div>
+            <span class="h263tr">Contigo hasta el <span style="font-size: 30px;">∞</span> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Variables globales
+      let currentScene = 1;
+      let currentSlide = 0;
+      const totalSlides = 4;
+
+      // Fecha de inicio de la relación: 23/05/2005 11:37am
+      const relationshipStart = new Date(2025, 5, 17, 9, 0, 0); // Mes 4 = Mayo (0-indexado)
+
+      // Elementos del DOM
+      const scenes = document.querySelectorAll(".scene");
+      const animation1 = document.getElementById("animation1");
+      const animation2 = document.getElementById("animation2");
+      const sliderContainer = document.querySelector(".slider-container");
+      const sliderContent = document.querySelector(".slider-content");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const indicators = document.querySelectorAll(".indicator");
+
+      // Event Listeners
+      animation1.addEventListener("click", () => {
+        if (currentScene === 1) {
+          goToScene(2);
+        }
+      });
+
+      prevBtn.addEventListener("click", () => {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlider();
+        }
+      });
+
+      nextBtn.addEventListener("click", () => {
+        if (currentSlide < totalSlides - 1) {
+          currentSlide++;
+          updateSlider();
+        } else {
+          // Última slide, ir a escena 3
+          goToScene(3);
+        }
+      });
+
+      // Funciones
+      function goToScene(sceneNumber) {
+        // Ocultar escena actual
+        scenes[currentScene - 1].classList.remove("active");
+        scenes[currentScene - 1].classList.add("exit");
+
+        setTimeout(() => {
+          scenes[currentScene - 1].classList.remove("exit");
+          currentScene = sceneNumber;
+
+          // Mostrar nueva escena
+          scenes[currentScene - 1].classList.add("active");
+
+          // Lógica específica por escena
+          if (currentScene === 2) {
+            // Iniciar animación 2 sin loop
+            animation2.loop = false;
+            animation2.play();
+
+            // Mostrar slider después de que termine la animación
+            setTimeout(() => {
+              sliderContainer.style.display = "block";
+              sliderContainer.classList.add("fade-in-up");
+              animation2.classList.add("fade-and-hide");
+            }, 5000); // Ajustar según duración de la animación
+          } else if (currentScene === 3) {
+            // Iniciar contador de tiempo
+            startTimeCounter();
+          }
+        }, 400);
+      }
+
+      function updateSlider() {
+        // Actualizar posición del slider
+        const translateX = -currentSlide * 100;
+        sliderContent.style.transform = `translateX(${translateX}%)`;
+
+        // Actualizar indicadores
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle("active", index === currentSlide);
+        });
+
+        // Actualizar botones
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.innerHTML =
+          currentSlide === totalSlides - 1
+            ? `<svg version="1.2" xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" width="24" height="24">
+                <style>
+                    .d { fill: white; }
+                </style>
+                <path d="m19.5 16.8c-1.2 1.2-3.1 1.2-4.3 0-1.2-1.2-1.2-3.1 0-4.2l0.7-0.7-0.7-0.7c-1.2-1.2-1.2-3.1 0-4.3 1.2-1.1 3.1-1.1 4.3 0l4.1 4.1c0.3 0.2 0.4 0.5 0.4 0.9 0 0.3-0.1 0.6-0.4 0.9z"/>
+                <path fill-rule="evenodd" d="m1.7 11.3h14.6c0.4 0 0.7 0.3 0.7 0.7 0 0.4-0.3 0.7-0.7 0.7h-14.6c-0.4 0-0.7-0.3-0.7-0.7 0-0.4 0.3-0.7 0.7-0.7z"/>
+                </svg>`
+            : `<svg version="1.2" xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" width="24" height="24">
+                <style>
+                    .d { fill: white; }
+                </style>
+                <path d="m19.5 16.8c-1.2 1.2-3.1 1.2-4.3 0-1.2-1.2-1.2-3.1 0-4.2l0.7-0.7-0.7-0.7c-1.2-1.2-1.2-3.1 0-4.3 1.2-1.1 3.1-1.1 4.3 0l4.1 4.1c0.3 0.2 0.4 0.5 0.4 0.9 0 0.3-0.1 0.6-0.4 0.9z"/>
+                <path fill-rule="evenodd" d="m1.7 11.3h14.6c0.4 0 0.7 0.3 0.7 0.7 0 0.4-0.3 0.7-0.7 0.7h-14.6c-0.4 0-0.7-0.3-0.7-0.7 0-0.4 0.3-0.7 0.7-0.7z"/>
+                </svg>`;
+
+        // Añadir animación a la slide actual
+        const currentSlideElement =
+          document.querySelectorAll(".slide")[currentSlide];
+        currentSlideElement.classList.add("fade-in-up");
+      }
+
+      function startTimeCounter() {
+        function updateCounter() {
+          const now = new Date();
+          const diff = now - relationshipStart;
+
+          // Calcular tiempo transcurrido
+          const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+          const months = Math.floor(
+            (diff % (1000 * 60 * 60 * 24 * 365.25)) /
+              (1000 * 60 * 60 * 24 * 30.44)
+          );
+          const days = Math.floor(
+            (diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24)
+          );
+          const hours = Math.floor(
+            (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+
+          // Actualizar display
+          document.getElementById("years").textContent = years;
+          document.getElementById("months").textContent = months;
+          document.getElementById("days").textContent = days;
+          document.getElementById("hours").textContent = hours;
+        }
+
+        // Actualizar inmediatamente y luego cada hora
+        updateCounter();
+        setInterval(updateCounter, 3600000); // Cada hora
+      }
+
+      // Prevenir zoom en dispositivos móviles
+      document.addEventListener("touchstart", function (event) {
+        if (event.touches.length > 1) {
+          event.preventDefault();
+        }
+      });
+
+      let lastTouchEnd = 0;
+      document.addEventListener(
+        "touchend",
+        function (event) {
+          const now = new Date().getTime();
+          if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+          }
+          lastTouchEnd = now;
+        },
+        false
+      );
+    </script>
+    <script>
+      // Colores para los corazones
+      const colors = [
+        "#ff0000", // rojo
+        "#ff69b4", // rosa caliente
+        "#ff1493", // rosa profundo
+        "#db7093", // rosa pálido
+        "#ff6347", // tomate
+        "#ff4500", // naranja rojizo
+        "#49D176", // verde
+        "#47ae63", // verde
+        "#ffa500", // naranja
+        "#ff8c00", // naranja oscuro
+        "#9932cc", // orquídea oscura
+        "#9400d3", // violeta
+        "#8a2be2", // azul violeta
+        "#eee8aa", // amarillo pálido
+        "#ffa500", // naranja
+      ];
+
+      // Función para crear corazones
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤";
+
+        // Posición horizontal aleatoria
+        const left = Math.random() * window.innerWidth;
+        heart.style.left = `${left}px`;
+
+        // Color aleatorio
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        heart.style.color = color;
+
+        // Tamaño aleatorio entre 10px y 30px
+        const size = Math.random() * 20 + 10;
+        heart.style.fontSize = `${size}px`;
+
+        // Duración de la animación entre 5 y 15 segundos
+        const duration = Math.random() * 10 + 5;
+        heart.style.animationDuration = `${duration}s`;
+
+        // Retraso inicial aleatorio
+        const delay = Math.random() * 5;
+        heart.style.animationDelay = `${delay}s`;
+
+        document.body.appendChild(heart);
+
+        // Eliminar el corazón después de que termine la animación
+        setTimeout(() => {
+          heart.remove();
+        }, duration * 1500);
+      }
+
+      // Crear corazones cada 300ms
+      setInterval(createHeart, 300);
+
+      // Crear algunos corazones al cargar la página
+      window.onload = () => {
+        for (let i = 0; i < 20; i++) {
+          setTimeout(createHeart, i * 150);
+        }
+      };
+    </script>
+    <script>
+      function calcularMesesYDias(fechaInicioStr) {
+        const hoy = new Date();
+        const inicio = new Date(fechaInicioStr);
+
+        let años = hoy.getFullYear() - inicio.getFullYear();
+        let meses = hoy.getMonth() - inicio.getMonth();
+        let días = hoy.getDate() - inicio.getDate();
+
+        if (días < 0) {
+          meses--; // restamos un mes si aún no se cumple el día
+          const mesAnterior = new Date(hoy.getFullYear(), hoy.getMonth(), 0);
+          días += mesAnterior.getDate(); // sumamos días del mes anterior
+        }
+
+        if (meses < 0) {
+          años--;
+          meses += 12;
+        }
+
+        const totalMeses = años * 12 + meses;
+
+        return { meses: totalMeses, días };
+      }
+
+      const resultado = calcularMesesYDias("2025-05-23");
+      document.getElementById("months").textContent = resultado.meses;
+      document.getElementById("days").textContent = resultado.días;
+    </script>
+
+    <script>
+        // Configuración inicial
+        const heartColor = '#ff3366'; // Color base para corazón y ondas
+        
+        // Aplicar color inicial
+        document.documentElement.style.setProperty('--heart-color', heartColor);
+        document.documentElement.style.setProperty('--wave-color', heartColor);
+        
+        // Establecer opacidades iniciales para cada onda
+        document.querySelector('.heart-wave-1').style.setProperty('--initial-opacity', '0.7');
+        document.querySelector('.heart-wave-2').style.setProperty('--initial-opacity', '0.6');
+        document.querySelector('.heart-wave-3').style.setProperty('--initial-opacity', '0.5');
+        document.querySelector('.heart-wave-4').style.setProperty('--initial-opacity', '0.4');
+        document.querySelector('.heart-wave-5').style.setProperty('--initial-opacity', '0.3');
+        
+        // Función para sincronizar animaciones
+        function syncAnimations() {
+            const heart = document.querySelector('.heart-beat');
+            const waves = document.querySelectorAll('[class^="heart-wave"]');
+            
+            // Reiniciar animación del corazón
+            heart.style.animation = 'none';
+            heart.offsetHeight; // Forzar reflow
+            heart.style.animation = 'heartbeat 1.5s ease-in-out infinite';
+            
+            // Reiniciar animaciones de ondas
+            waves.forEach((wave, index) => {
+                wave.style.animation = 'none';
+                wave.offsetHeight;
+                wave.style.animation = `wave 1.5s cubic-bezier(0.2, 0.8, 0.4, 1) infinite ${index * 0.3}s`;
+            });
+        }
+        
+        // Cambiar color al hacer clic (opcional)
+        const colorOptions = ['#ff3366', '#e91e63', '#9c27b0', '#3f51b5', '#03a9f4', '#009688', '#8bc34a', '#ffc107', '#ff5722'];
+        let colorIndex = 0;
+        
+        document.querySelector('.heart-container').addEventListener('click', () => {
+            colorIndex = (colorIndex + 1) % colorOptions.length;
+            const newColor = colorOptions[colorIndex];
+            
+            document.documentElement.style.setProperty('--heart-color', newColor);
+            document.documentElement.style.setProperty('--wave-color', newColor);
+            
+            syncAnimations();
+        });
+        
+        // Iniciar animaciones
+        syncAnimations();
+    </script>
+  </body>
+</html>
