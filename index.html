@@ -559,38 +559,17 @@
     </style>
   </head>
   <body>
-        <!-- Botón oculto que activará la reproducción -->
-    <button id="playButton">Reproducir</button>
-    
-    <audio id="audioPlayer" controls>
-        <source src="https://github.com/DihigoJF/y-f/raw/82eae22f7a18660096b7c5f54954f913941c5bfc/Charlie%20Rodd%20-%20So%C3%B1ar%20Contigo%20%5BLetra%5D.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
+     <audio id="myAudio" src="https://github.com/DihigoJF/y-f/raw/82eae22f7a18660096b7c5f54954f913941c5bfc/Charlie%20Rodd%20-%20So%C3%B1ar%20Contigo%20%5BLetra%5D.mp3"></audio>
 
-    <script>
-        // Esperamos a que todo el contenido esté cargado
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const playButton = document.getElementById('playButton');
-            const audioPlayer = document.getElementById('audioPlayer');
-            
-            // Configuramos el evento click
-            playButton.addEventListener('click', () => {
-                audioPlayer.play().catch(e => {
-                    console.error("Error al reproducir:", e);
-                });
-            });
-            
-            // Intentamos simular el clic automáticamente
-            setTimeout(() => {
-                try {
-                    playButton.click();
-                    console.log("Se simuló el clic automático");
-                } catch (e) {
-                    console.log("El navegador bloqueó la reproducción automática");
-                }
-            }, 1000); // Pequeño retraso para asegurar que todo esté listo
-        });
-    </script><div class="container">
+<script>
+document.addEventListener('click', function () {
+  const audio = document.getElementById('myAudio');
+  audio.play();
+}, { once: true }); // Solo en el primer clic
+</script>
+
+
+    <div class="container">
       <!-- Escena 1 -->
       <div class="scene scene1 active">
         <dotlottie-player
